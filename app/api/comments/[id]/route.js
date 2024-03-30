@@ -1,14 +1,15 @@
 import comments from "@/app/data/comments";
+import { redirect } from "next/navigation";
 
-export const GET = async ({ params }) => {
+export const GET = async (_request, { params }) => {
     const commentId = params.id;
-    const commentIndex = comments.findIndex(
+    const commentIndex = comments.find(
         (comment) => comment.id === parseInt(commentId)
     );
     if (commentIndex) {
-        return Response.json(comments[commentIndex]);
+        return Response.json(commentIndex);
     }
-    return Response.json(comments);
+    redirect("/api/comments");
 };
 
 export const PATCH = async (request, { params }) => {
